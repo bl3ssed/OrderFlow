@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   postgres:
     image: postgres:17-alpine
@@ -10,7 +9,7 @@ services:
     ports:
       - "5435:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - userservice_postgres_data:/var/lib/postgresql/data
     networks:
       - userservice-net
 
@@ -31,7 +30,7 @@ services:
       - userservice-net
 
 volumes:
-  postgres_data:
+  userservice_postgres_data:
 
 networks:
   userservice-net:

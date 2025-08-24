@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: itemservice_db
+    environment:
+      POSTGRES_DB: itemservice_db
+      POSTGRES_USER: itemservice
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5436:5432"
+    volumes:
+      - itemservice_postgres_data:/var/lib/postgresql/data
+    networks:
+      - itemservice-net
+
+  itemservice:
+    build:
+      context: .
+      dockerfile: services/item-service/Dockerfile
+    container_name: itemservice
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/itemservice_db
+      SPRING_DATASOURCE_USERNAME: itemservice
+      SPRING_DATASOURCE_PASSWORD: secret
+    depends_on:
+      - postgres
+    networks:
+      - itemservice-net
+
+volumes:
+  itemservice_postgres_data:
+
+networks:
+  itemservice-net:
+    driver: bridge

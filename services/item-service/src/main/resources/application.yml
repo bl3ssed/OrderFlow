@@ -1,0 +1,9 @@
+spring:
+  application:
+    name : item-service
+  datasource:
+    url: jdbc:postgresql://localhost:5436/itemservice_db
+    username: itemservice
+    password: secret
+server:
+  port: 0
