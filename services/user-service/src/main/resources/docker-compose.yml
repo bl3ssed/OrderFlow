@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: userservice_db
+    environment:
+      POSTGRES_DB: userservice_db
+      POSTGRES_USER: userservice
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - userservice-net
+
+  userservice:
+    build:
+      context: .
+      dockerfile: services/user-service/Dockerfile
+    container_name: userservice
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/userservice_db
+      SPRING_DATASOURCE_USERNAME: userservice
+      SPRING_DATASOURCE_PASSWORD: secret
+    depends_on:
+      - postgres
+    networks:
+      - userservice-net
+
+volumes:
+  postgres_data:
+
+networks:
+  userservice-net:
+    driver: bridge
