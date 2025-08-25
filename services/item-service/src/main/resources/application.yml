@@ -7,3 +7,5 @@ spring:
     password: secret
 server:
   port: 0
+jwt:
+  secret: 1714b351f0c4a3a209c7a5f6188006eb

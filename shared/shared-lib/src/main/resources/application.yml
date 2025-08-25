@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: shared-lib
+jwt:
+  secret: 1714b351f0c4a3a209c7a5f6188006eb

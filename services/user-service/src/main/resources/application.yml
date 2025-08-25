@@ -5,3 +5,5 @@ spring:
     url: jdbc:postgresql://localhost:5435/userservice_db
     username: userservice
     password: secret
+jwt:
+  secret : 1714b351f0c4a3a209c7a5f6188006eb
